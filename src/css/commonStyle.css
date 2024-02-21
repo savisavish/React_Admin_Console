@@ -1,0 +1,125 @@
+.tabs-container {
+    width: 100%;
+    margin: 20px auto;
+}
+
+.tabs {
+    display: flex;
+}
+
+.tab {
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    background-color: #f1f1f1;
+}
+
+.tab.active {
+    background-color: red;
+}
+
+.tab-content {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.userdetailscontent {
+    background-color: #fff;
+}
+.backtoprevpage{
+    display: flex;
+    width: 100%;
+    height: 32px;
+    align-items: center;
+    flex-shrink: 0;
+    padding: 0 16px;
+    border: solid 1px transparent;
+    border-bottom-color: #F0F0F0;
+    color: var(--accents-accent-7);
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22px;
+    gap: 16px;
+}
+.backicon{
+    background: url('../images/backicon.png');
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+}
+.download, .save {
+    display: inline-flex;
+    padding: 6px 16px 4px 16px;
+    flex-direction: row;
+    flex-direction: row;
+    align-items: center;
+    align-items: center;
+
+}
+
+.download {
+    gap: 8px;
+    border: 1px solid #2D6BFF;
+    background: #FFF;
+    color: #2D6BFF;
+    width: 141px;
+    height: 32px;
+    text-align: center;
+    font-family: "MyWebFont" !important;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.filter {
+    font-size: 14px;
+    line-height: 22px;
+    height: 32px;
+    border: 1px solid #d7d7d7;
+    border-radius: 0px;
+    color: #000000;
+    letter-spacing: 2px;
+    padding: 6px 22px 4px 22px;
+    margin-left: 20px;
+    box-shadow: 0px 0px 1px 0;
+    cursor: pointer;
+}
+
+.save {
+    gap: 8px;
+    border: 1px solid var(--accents-accent-7);
+    background: #2D6BFF;
+    color: #fff;
+    width: 141px;
+    height: 32px;
+    text-align: center;
+    font-family: "MyWebFont" !important;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.layout2{
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    height: 48px;
+    align-items: center;
+    padding:0 12px
+}
+.layout2-left{
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+}

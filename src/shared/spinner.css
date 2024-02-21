@@ -1,0 +1,39 @@
+@keyframes rotate-s-loader {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-spinner {
+  width: 25px;
+  height: 25px;
+  border: 3px solid rgba(228, 85, 31, 0.2);
+  border-left-color: rgb(228, 85, 31);
+  border-radius: 50%;
+  background: transparent;
+  animation-name: rotate-s-loader;
+  animation-iteration-count: infinite;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  position: relative;
+  top: 40%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+}
+
+.spinner-container {
+  height: 152px;
+  width: 152px !important;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  background-color: #ffffff;
+  box-shadow: 0 24px 40px -8px rgba(26, 26, 26, 0.16);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
