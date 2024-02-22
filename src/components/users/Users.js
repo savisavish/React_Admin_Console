@@ -101,14 +101,16 @@ const Users = (props) => {
         setLockedCustomers(_lockedCustomers);
         setCustomers(_unlockedCustomers);
     };
-
+    const handleUserFilter = () => {
+        alert(1);
+    };
     return (
         <>
             <div className="layout2">
                 <div className="layout2-left">
                     <span>All Users</span>
                     <span>Search</span>
-                    <span><Filter/></span>
+                    <span><Filter onClick={handleUserFilter}/></span>
                 </div>
                 <div><span><Download/></span></div>
             </div>
