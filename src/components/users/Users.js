@@ -11,6 +11,7 @@ import 'primereact/resources/primereact.min.css';
 import LoadingSpinner from "../../shared/LoadingSpinner";
 import Download from '../../shared/buttons/Download';
 import Filter from '../../shared/buttons/Filter';
+import Filter_popup from './Filter_popup';
 
 const Users = (props) => {
     const navigate = useNavigate();
@@ -101,16 +102,22 @@ const Users = (props) => {
         setLockedCustomers(_lockedCustomers);
         setCustomers(_unlockedCustomers);
     };
+    const [isOpen, setIsOpen] = useState(false);
     const handleUserFilter = () => {
-        alert(1);
-    };
+        setIsOpen(!isOpen);
+    }
     return (
         <>
             <div className="layout2">
                 <div className="layout2-left">
                     <span>All Users</span>
                     <span>Search</span>
-                    <span><Filter onClick={handleUserFilter}/></span>
+                    <span><span>
+                        <Filter onClick={handleUserFilter} />
+                        {isOpen && <Filter_popup
+                            handleClose={handleUserFilter}
+                        />}
+                    </span></span>
                 </div>
                 <div><span><Download/></span></div>
             </div>
