@@ -23,9 +23,9 @@ const Users = (props) => {
             body: (rowData) => {
                 const name = rowData?.name || 'N/A';
                 return <NavLink activeclassname="active" to='/users/userinfo' state={rowData}>{name}</NavLink>
-            }
+            } , width:'170px'
         },
-        { field: 'email', header: 'EMAIL', body: (rowData) => rowData.email || 'N/A' },
+        { field: 'email', header: 'EMAIL', body: (rowData) => rowData.email || 'N/A' , width:'170px' },
         { field: 'newJobTitle', header: 'JOB FUNCTION', body: (rowData) => rowData.newJobTitle || 'N/A' },
         { field: 'companyName', header: 'COMPANY PROFILE', body: (rowData) => rowData.companyName || 'N/A' },
         { field: 'address.firstName', header: 'USER WORK ADDRESS', body: (rowData) => rowData.address?.firstName || 'N/A' },
@@ -36,8 +36,9 @@ const Users = (props) => {
             body: (rowData) => (
                 rowData.activeCheck === 'true' ?
                     <span><i className="fa fa-check"></i> Active</span> : <span><i className="fa fa-times"></i> Inactive</span>
-            )
+            ) , width:'99px'
         }
+        
     ];
 
     const [customers, setCustomers] = useState([]);
@@ -122,7 +123,7 @@ const Users = (props) => {
                 <div><span><Download/></span></div>
             </div>
             {isLoading ? <LoadingSpinner /> :
-                <DataTable value={users} showGridlines value={users} frozenValue={lockedCustomers} scrollable scrollHeight="650px" paginator rows={25} rowsPerPageOptions={[25, 50, 100, 250]} tableStyle={{ minWidth: '50rem' }}
+                <DataTable value={users} showGridlines value={users} frozenValue={lockedCustomers} scrollable scrollHeight="600px" paginator rows={25} rowsPerPageOptions={[25, 50, 100, 250]}
                     paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
                     currentPageReportTemplate="{first} to {last} of {totalRecords}" paginatorLeft={paginatorLeft} paginatorRight={paginatorRight} selectionMode="single" selection={selectedProduct}>
                     {columns.map((col, i) => (
@@ -131,8 +132,13 @@ const Users = (props) => {
                             field={col.field}
                             header={col.header}
                             body={col.body}
+                            style={{ width: col.width }}
                         />
                     ))}
+
+{/* {columns.map((col, i) => (
+        <Column key={col.field} field={col.field} header={col.header} />
+    ))} */}
 
                 </DataTable>
             }
