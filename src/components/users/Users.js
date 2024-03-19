@@ -23,9 +23,9 @@ const Users = (props) => {
             body: (rowData) => {
                 const name = rowData?.name || 'N/A';
                 return <NavLink activeclassname="active" to='/users/userinfo' state={rowData}>{name}</NavLink>
-            } , width:'170px'
+            }, width: '170px'
         },
-        { field: 'email', header: 'EMAIL', body: (rowData) => rowData.email || 'N/A' , width:'170px' },
+        { field: 'email', header: 'EMAIL', body: (rowData) => rowData.email || 'N/A', width: '170px' },
         { field: 'newJobTitle', header: 'JOB FUNCTION', body: (rowData) => rowData.newJobTitle || 'N/A' },
         { field: 'companyName', header: 'COMPANY PROFILE', body: (rowData) => rowData.companyName || 'N/A' },
         { field: 'address.firstName', header: 'USER WORK ADDRESS', body: (rowData) => rowData.address?.firstName || 'N/A' },
@@ -36,9 +36,9 @@ const Users = (props) => {
             body: (rowData) => (
                 rowData.activeCheck === 'true' ?
                     <span><i className="fa fa-check"></i> Active</span> : <span><i className="fa fa-times"></i> Inactive</span>
-            ) , width:'99px'
+            ), width: '99px'
         }
-        
+
     ];
 
     const [customers, setCustomers] = useState([]);
@@ -104,7 +104,7 @@ const Users = (props) => {
         setCustomers(_unlockedCustomers);
     };
     const [isOpen, setIsOpen] = useState(false);
-    const handleUserFilter = () => {
+    const handleTogglePopup = () => {
         setIsOpen(!isOpen);
     }
     return (
@@ -114,13 +114,11 @@ const Users = (props) => {
                     <span>All Users</span>
                     <span>Search</span>
                     <span><span>
-                        <Filter onClick={handleUserFilter} />
-                        {isOpen && <Filter_popup
-                            handleClose={handleUserFilter}
-                        />}
+                        <Filter onClick={handleTogglePopup} />
+                        {isOpen && <Filter_popup handleClose={handleTogglePopup} />}
                     </span></span>
                 </div>
-                <div><span><Download/></span></div>
+                <div><span><Download /></span></div>
             </div>
             {isLoading ? <LoadingSpinner /> :
                 <DataTable value={users} showGridlines value={users} frozenValue={lockedCustomers} scrollable scrollHeight="600px" paginator rows={25} rowsPerPageOptions={[25, 50, 100, 250]}
@@ -136,7 +134,7 @@ const Users = (props) => {
                         />
                     ))}
 
-{/* {columns.map((col, i) => (
+                    {/* {columns.map((col, i) => (
         <Column key={col.field} field={col.field} header={col.header} />
     ))} */}
 

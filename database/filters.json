@@ -1,0 +1,51 @@
+{
+    "adminconsolefilters": {
+        "usertabfilter": {
+            "jobfunction": [
+                "Accounting/Payables",
+                "Administrative Assistant",
+                "AOG Desk",
+                "Company Owner",
+                "Customer Service",
+                "Director of Operations",
+                "Engineer",
+                "Expeditor",
+                "Finance",
+                "Freight Forwarder",
+                "Inspector",
+                "Inventory Analyst",
+                "Materials",
+                "Mechanic/Repair Technician",
+                "Planner",
+                "President",
+                "Pricing/Cost Analyst",
+                "Procurement/Buyer",
+                "Purchasing",
+                "Quality",
+                "Sales",
+                "Shipping",
+                "Supply Chain",
+                "Technical Librarian",
+                "UTAS Employee (not Buyer)",
+                "Vice President",
+                "Warranty",
+                "Other"
+            ],
+            "entitlement": [
+                "Accounting 123",
+                "Create Spare Part Orders",
+                "Freight Forwarder Access",
+                "Internal User Access",
+                "Place Technical Requests - Aerostructures Only",
+                "Technical Publications Access",
+                "View & Approve Repair Orders",
+                "View Quotes & Orders",
+                "View Spare Quotes"
+            ],
+            "status": [
+                "Active",
+                "Inactive"
+            ]
+        }
+    }
+}

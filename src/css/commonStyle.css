@@ -174,3 +174,9 @@ table tbody tr td{
     word-break: break-all;
     vertical-align: top;
 }
+.close-icon{
+    background: url('../images/download.png');
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+}

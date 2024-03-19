@@ -8,7 +8,7 @@ const Filter = ({ onClick }) => {
     };
     return (
         <>
-           <a className="filter" onClick={handleClick}>Filter<span><img src={require('../../images/filter.svg')} /></span></a>
+           <a className="filter" onClick={handleClick}>Filter<span><img className="filterbutton" /></span></a>
         </>
     )
 }
