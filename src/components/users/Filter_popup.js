@@ -17,6 +17,7 @@ const Filter_popup = ({ handleClose }) => {
   };
   const hideJobCloseIcon = () => {
     setIcons({ ...icons, Job_searchIcon: true, Job_closeIcon: false, Job_searchInput: false });
+    clearFilters();
   };
   const showJobSearchInput = () => {
     setIcons({ ...icons, Job_searchIcon: false, Job_closeIcon: true, Job_searchInput: true });
@@ -26,6 +27,7 @@ const Filter_popup = ({ handleClose }) => {
   };
   const hideEntCloseIcon = () => {
     setIcons({ ...icons, Ent_searchIcon: true, Ent_closeIcon: false, Ent_searchInput: false });
+    clearFilters();
   };
   const showEntSearchInput = () => {
     setIcons({ ...icons, Ent_searchIcon: false, Ent_closeIcon: true, Ent_searchInput: true });
@@ -72,32 +74,45 @@ const Filter_popup = ({ handleClose }) => {
     regError_2: false,
     regError_3: false
   });
-  const userFilterClearAll = () => { };
+
   const disableUsersTabFutureDates = () => { };
   const checkUsersTabFutureDate = () => { };
 
   /***Calendar Function***/
   /***Checkbox Function***/
-  const [checkedValues, setCheckedValues] = useState([]);
-  const [disableApplyButton, setDisableApplyButton] = useState(true);
+  const [checkedValues, setCheckedValues] = useState({});
 
-  const handleCheckboxChange = (event) => {
-    const { value, checked } = event.target;
+  function handleCheckboxChange(e) {
+    const { value } = e.target;
+    setCheckedValues(prevcheckedValues => ({
+      ...prevcheckedValues,
+      [value]: !prevcheckedValues[value] // Toggle the checked state for the checkbox value
+    }));
+  }
 
-    // Update checkedValues array based on checkbox state
-    if (checked) {
-      alert(1)
-      setCheckedValues([...checkedValues, value]); // Add value to checkedValues if checked
-    } else {
-      alert(2)
-      setCheckedValues(checkedValues.filter(item => item !== value)); // Remove value from checkedValues if unchecked
-    }
-    console.log(checkedValues.length)
-    // Enable apply button if there are any checked checkboxes
-    setDisableApplyButton(checkedValues.length > 0);
-  };
-
+  function isDisabled() {
+    return Object.values(checkedValues).every(checked => !checked); // Check if all checkcheckedValues are unchecked
+  }
+  function userFilterClearAll() {
+    setCheckedValues({}); // Clear all checked checkcheckedValues
+  }
   /***Checkbox Function***/
+  /***Search Function***/
+  const [filterQuery, setFilterQuery] = useState('');
+  const handleSearchInputChange = (event) => {
+    const query = event.target.value.trim();
+    if (query.length >= 3 || query === '') {
+      setFilterQuery(query.toLowerCase());
+    }
+    if (query.length < 3) {
+      clearFilters();
+    }
+  };
+  const clearFilters = () => {
+    setCheckedValues({}); // Clear all checked checkboxes
+    setFilterQuery(''); // Clear the filter query
+  };
+  /***Search Function***/
 
   return (
     <div className="filter-popup is-visible" role="alert">
@@ -109,25 +124,34 @@ const Filter_popup = ({ handleClose }) => {
         <div className="job-function filter-section">
           <div className="filtersearchicon">
             <h6>JOB FUNCTION</h6>
-            {icons.Job_searchIcon && <span className="jobfsearch"><img className="searchicon" alt="" onClick={showJobSearchInput} /></span>}
-            {icons.Job_searchInput && <span className="jobfsearchclose" id="jobfsearchclose"><input id="JobFunctionInput" type="text" name="jobfunction" placeholder="SEARCH BY JOB FUNCTION" spellCheck="false" onClick={hideJobSearchInput} /><img className="eclose closeicon" alt="" onClick={hideJobCloseIcon} /></span>}
+            {
+              icons.Job_searchIcon &&
+              <span className="jobfsearch">
+                <img className="searchicon" alt="" onClick={showJobSearchInput} />
+              </span>
+            }
+            {icons.Job_searchInput && <span className="jobfsearchclose" id="jobfsearchclose"><input id="JobFunctionInput" type="text" name="jobfunction" placeholder="SEARCH BY JOB FUNCTION" spellCheck="false" onChange={handleSearchInputChange} /><img className="eclose closeicon" alt="" onClick={hideJobCloseIcon} /></span>}
           </div>
           <div className="filter-options" id="jobFunctionSearch">
             {/* Render jobfunction filters */}
-            {jobfunction.slice(0, visibleLabels).map((filter, index) => (
-              <label key={index} htmlFor="">
-                <input
-                  type="checkbox"
-                  name="filtercheckbox"
-                  value={filter}
-                  onChange={handleCheckboxChange} // Call handleCheckboxChange on checkbox change
-                />
-                <span>{filter}</span>
-              </label>
-            ))}
+            {jobfunction
+              .filter(filter => filter.toLowerCase().includes(filterQuery))
+              .slice(0, visibleLabels)
+              .map((filter, index) => (
+                <label key={index} htmlFor="">
+                  <input
+                    type="checkbox"
+                    name="filtercheckbox"
+                    value={filter}
+                    onChange={handleCheckboxChange}
+                    checked={!!checkedValues[filter]}
+                  />
+                  <span>{filter}</span>
+                </label>
+              ))}
 
             {/* Display "Show More" button if there are more labels to show */}
-            {visibleLabels < jobfunction.length && (
+            {visibleLabels < jobfunction.filter(filter => filter.toLowerCase().includes(filterQuery)).length && (
               <button onClick={handleShowMore}>+20 More</button>
             )}
             {visibleLabels > 20 && (
@@ -139,16 +163,31 @@ const Filter_popup = ({ handleClose }) => {
           <div className="filtersearchicon">
             <h6>ENTITLEMENT</h6>
             {icons.Ent_searchIcon && <span className="jobfsearch"><img className="searchicon" alt="" onClick={showEntSearchInput} /></span>}
-            {icons.Ent_searchInput && <span className="jobfsearchclose" id="jobfsearchclose"><input id="JobFunctionInput" type="text" name="jobfunction" placeholder="SEARCH BY ENTITLEMENT" spellCheck="false" onClick={hideEntSearchInput} /><img className="eclose closeicon" alt="" onClick={hideEntCloseIcon} /></span>}
+            {icons.Ent_searchInput && <span className="jobfsearchclose" id="jobfsearchclose"><input id="JobFunctionInput" type="text" name="jobfunction" placeholder="SEARCH BY ENTITLEMENT" spellCheck="false" onChange={handleSearchInputChange} /><img className="eclose closeicon" alt="" onClick={hideEntCloseIcon} /></span>}
           </div>
           <div className="filter-options" id="entitlementsearch">
             {/* Render entitlement filters */}
-            {entitlement.map((filter, index) => (
+            {/* {entitlement.map((filter, index) => (
               <label key={index} htmlFor="">
-                <input type="checkbox" name="filtercheckbox" value={filter} onChange={handleCheckboxChange}/>
+                <input type="checkbox" name="filtercheckbox" value={filter} onChange={handleCheckboxChange} checked={!!checkedValues[filter]} />
                 <span>{filter}</span>
               </label>
-            ))}
+            ))} */}
+            {entitlement
+              .filter(filter => filter.toLowerCase().includes(filterQuery))
+              .slice(0, visibleLabels)
+              .map((filter, index) => (
+                <label key={index} htmlFor="">
+                  <input
+                    type="checkbox"
+                    name="filtercheckbox"
+                    value={filter}
+                    onChange={handleCheckboxChange}
+                    checked={!!checkedValues[filter]}
+                  />
+                  <span>{filter}</span>
+                </label>
+              ))}
           </div>
         </div>
 
@@ -158,7 +197,7 @@ const Filter_popup = ({ handleClose }) => {
             {/* Render status filters */}
             {status.map((filter, index) => (
               <label key={index} htmlFor="">
-                <input type="checkbox" name="filtercheckbox" value={filter} onChange={handleCheckboxChange}/>
+                <input type="checkbox" name="filtercheckbox" value={filter} onChange={handleCheckboxChange} checked={!!checkedValues[filter]} />
                 <span>{filter}</span>
               </label>
             ))}
@@ -195,7 +234,7 @@ const Filter_popup = ({ handleClose }) => {
         <input type="hidden" id="searchTextFilter" value="" />
         <div className="filter-popup-button-container">
           <button onClick={handleClose} className="filter-popup-button filter-popup-close">CLOSE</button>
-          <button className="applyfilter" id="applyUserFilter" disabled={disableApplyButton}>APPLY</button>
+          <button className="applyfilter" id="applyUserFilter" disabled={isDisabled()}>APPLY</button>
         </div>
       </div>
     </div>
